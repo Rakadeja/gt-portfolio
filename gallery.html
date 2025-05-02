@@ -1,0 +1,10 @@
+<div class="gallery-grid">
+    {% for item in site.data.gallery_items %}
+    <div class="gallery-item">
+        {% comment %} Use responsive image plugin here if installed {% endcomment %}
+        <img src="{{ item.image | relative_url }}" alt="{{ item.title }}" loading="lazy">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+    </div>
+    {% endfor %}
+</div>

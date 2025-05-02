@@ -1,0 +1,107 @@
+header {
+    background-image: url('../images/gt_checkered_header.png');
+    background-repeat: repeat-x;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    animation: fadeIn 0.64s ease forwards;
+    // background-color: var(--color-blue-4);
+
+    .brand-logo {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0 0 0.87em;
+        overflow: show;
+        // background-color: var(--color-blue-1);
+
+        img {
+            height: 4.2em;
+
+            &:hover {
+                animation: wiggle 1.2s infinite ease-in-out;
+            }
+        }
+    }
+
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        border-radius: 0 var(--corner-roundness) 0 0;
+        box-shadow: inset 0px 0px 42px 0px rgba(0, 0, 0, 0.512);
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    nav {
+        display: flex;
+
+        ul {
+            list-style: none;
+            list-style-type: none;
+            position: relative;
+            padding: 0.12em;
+            margin: 0 4.2em 0 4.2em;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            // background-color: var(--color-blue-4);
+            background-size: contain;
+
+            li {
+                position: relative;
+                list-style-type: none;
+                padding: 0.66rem;
+                margin: 0 0.8em 0 0.8em;
+
+                transition: color 0.16s ease-in-out, background-color 0.16s ease-in-out,
+                    border-color 0.16s ease-in-out, box-shadow 0.16s ease-in-out;
+
+                &:hover {
+                    border-radius: var(--border-radius);
+                    border-color: var(--color-yellow-1);
+                    box-shadow: inset 0px 5px 18px rgba(0, 0, 0, 0.303);
+                }
+
+                &:active {
+                    background-color: var(--color-brand);
+                }
+
+                a {
+                    font-size: 1.6rem;
+                    font-weight: 600;
+                    text-align: center;
+                    white-space: nowrap;
+
+                    &:hover {
+                        color: cyan;
+                        text-decoration: underline;
+                        transition: color 0.16s ease-in-out;
+                    }
+
+                    &:active {
+                        color: red;
+                        text-decoration: underline;
+                        transition: color 0.16s ease-in-out;
+                    }
+
+                    &:focus {
+                        &:not(:focus-visible) {
+                            outline: none;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,64 @@
+.container {
+	padding: 0.88em;
+	border-radius: var(--corner-roundness);
+	// box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.128);
+	// border-collapse: collapse;
+}
+
+.container-flex {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    border-radius: var(--corner-roundness);
+    box-shadow: var(--shadow-drop);
+    border-collapse: collapse;
+    padding: 12px;
+}
+
+.column {
+    flex: 1;
+    padding: 20px;
+
+    border-radius: var(--corner-roundness);
+    box-shadow: var(--shadow-drop);
+    background-clip: padding-box, border-box; 
+    background-origin: border-box;
+    background-color: var(--color-primary);
+    background: linear-gradient(var(--color-blue-4) 0%, var(--color-primary) 50%, black);
+}
+
+.flex-grid-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: stretch;
+	background: var(--gradient-1);
+}
+
+.flex-grid-item {
+    // flex: 0 0 100%;
+    padding: 0.1em;
+	margin: 0.1em;
+	background-color: var(--color-blue-2);
+	opacity: 0.5;
+
+	transition: color 0.16s ease-in-out,
+	opacity 0.16s ease-in-out;
+
+	&:hover {
+        opacity: 1;
+    }
+}
+
+.hbox {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    align-content: center;
+}
+
+.vbox {
+    flex-direction: column;
+}

@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "eliostruyf.vscode-front-matter",
+        "ginfuru.ginfuru-vscode-jekyll-syntax",
+        "sissel.shopify-liquid",
+        "mrmlnc.vscode-scss",
+        "jiapeiyao.tab-group",
+        "vscode-icons-team.vscode-icons",
+        "dharmey.timer",
+        "redhat.vscode-yaml"
+    ]
+}

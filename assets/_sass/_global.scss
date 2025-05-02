@@ -1,0 +1,45 @@
+@font-face {
+    font-family: "Arimo", sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Inconsolata:wght@200..900&display=swap') format('truetype');
+}
+
+:root {
+    // Global Variables
+    font-family: "Arimo", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; // Arimo is the closest to Helvetica imho
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+
+    // ------- COLOR SECTION -------
+
+    // GT Colors
+    --color-gt-gold: #f89400;
+    --color-gt-yellow: #fefe00;
+    --color-gt-orange: #e04100;
+    --color-gt-red: #ff0800;
+    --color-gt-gray-darkest: #202020;
+    --color-gt-gray-dark: #292929;
+    --color-gt-gray-light: #707070;
+    --color-gt-white: #c6c6c6;
+
+    --color-gt-highlight-mix: #fcfcfc; // Used for flickering and highlight animations
+
+    --gradient-gt-gold-yellow: linear-gradient(180deg, var(--color-gt-gold) 0%, var(--color-gt-yellow));
+    --gradient-gt-red-orange: linear-gradient(180deg, var(--color-gt-red) 0%, var(--color-gt-orange));
+
+    // Transitions and animations
+    --animation-flicker-rate: 130ms; // How fast to do the GT text flickering
+    --animation-transition-time: 700ms; // Time it takes for a UI transition
+
+    --color-text: rgb(221, 235, 255);
+
+    // Layout Variables
+    --column-width: 42rem;
+    --column-margin-top: 4rem;
+    --corner-roundness: 0.64rem;
+    --border-radius: 6px;
+
+    // Borders, glow and shadows
+    --shadow-drop: 0px 0px 20px 0px rgba(0, 0, 0, 0.512);
+    --shadow-inset: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.128);
+}

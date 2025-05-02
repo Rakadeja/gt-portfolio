@@ -1,0 +1,70 @@
+{% comment %} --- _includes/header/ --- {% endcomment %}
+
+{% assign current_page_url = page.url %} {% comment %} Get the current page's URL {% endcomment %}
+
+<header class="fadeIn">
+    <div class="navbar">
+        <div class="container">
+            <div class="brand-logo">
+                {% assign home_url = '/' | relative_url %}
+                <a href="{{ home_url }}">
+                    <img src="{{ '/assets/images/favicon.ico' | relative_url }}"
+                        alt="Blue Marten's Brand Logo, a blue pine marten!" />
+                </a>
+            </div>
+
+            <nav>
+                <ul>
+                    {% comment %} --- Home Link --- {% endcomment %}
+                    <li {% if current_page_url==home_url %}aria-current="page" {% endif %}>
+                        <a href="{{ home_url }}" class="{% if current_page_url == home_url %}active{% endif %}">Home</a>
+                    </li>
+
+                    {% comment %} --- Blog Link (Workaround for startswith) --- {% endcomment %}
+                    {% assign blog_base_url = '/blog/' | relative_url %}
+                    {% assign blog_check_path = '/blog' | relative_url %}
+                    {% assign blog_path_len = blog_check_path | size %}
+                    {% assign current_url_blog_prefix = current_page_url | slice: 0, blog_path_len %}
+                    <li {% if current_page_url==blog_base_url or current_url_blog_prefix==blog_check_path
+                        %}aria-current="page" {% endif %}>
+                        <a href="{{ blog_base_url }}"
+                            class="{% if current_page_url == blog_base_url or current_url_blog_prefix == blog_check_path %}active{% endif %}">Blog</a>
+                    </li>
+
+                    {% comment %} --- Gallery Link --- {% endcomment %}
+                    {% assign gallery_url = '/gallery/' | relative_url %}
+                    <li {% if current_page_url==gallery_url %}aria-current="page" {% endif %}>
+                        <a href="{{ gallery_url }}"
+                            class="{% if current_page_url == gallery_url %}active{% endif %}">Gallery</a>
+                    </li>
+
+                    {% comment %} --- Projects Link --- {% endcomment %}
+                    {% assign projects_url = '/projects/' | relative_url %}
+                    <li {% if current_page_url==projects_url %}aria-current="page" {% endif %}>
+                        <a href="{{ projects_url }}"
+                            class="{% if current_page_url == projects_url %}active{% endif %}">Projects</a>
+                    </li>
+
+                    <!-- {% comment %} --- Portfolio Link (Workaround for startswith) --- {% endcomment %}
+          {% assign portfolio_base_url = '/portfolio/' | relative_url %}
+          {% assign portfolio_check_path = '/portfolio' | relative_url %}
+          {% assign portfolio_path_len = portfolio_check_path | size %}
+          {% assign current_url_portfolio_prefix = current_page_url | slice: 0, portfolio_path_len %}
+          <li {% if current_url_portfolio_prefix == portfolio_check_path %}aria-current="page"{% endif %}>
+            <a href="{{ portfolio_base_url }}" class="{% if current_url_portfolio_prefix == portfolio_check_path %}active{% endif %}">Portfolio</a>
+          </li> -->
+
+                    {% comment %} --- About Link --- {% endcomment %}
+                    {% assign about_url = '/about/' | relative_url %}
+                    <li {% if current_page_url==about_url %}aria-current="page" {% endif %}>
+                        <a href="{{ about_url }}"
+                            class="{% if current_page_url == about_url %}active{% endif %}">About</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+{% comment %} --- End _includes/header/ --- {% endcomment %}

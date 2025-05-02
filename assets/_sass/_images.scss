@@ -1,0 +1,43 @@
+img {
+	opacity: 0.94;
+	transition: transform 0.3s ease-in-out;
+
+	&:hover {
+		opacity: 1.0;
+	}
+}
+
+svg {
+    width: 100%;
+    height: auto;
+	transition: transform 0.3s ease;
+}
+
+.shape .svg-gradient-path {
+	paint-order: stroke;
+	stroke: #00044f;
+	stroke-width: 1.42px;
+	fill: url(#svg-shape-gradient);
+	transition: transform 0.24s ease;
+}
+
+.shape:hover {
+	transition: transform 0.08s ease;
+	transform: scale(1.16);
+}
+
+.shape:active {
+	transform: scale(1.87);
+}
+
+.shape .svg-gradient-path:hover {
+    stroke: url(#svg-shape-gradient);
+    fill: black;
+}
+
+.shape .svg-gradient-path-sub {
+	fill: url(#svg-shape-gradient);
+	&:hover {
+		fill: white;
+	}
+}
