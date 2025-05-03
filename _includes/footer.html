@@ -2,26 +2,29 @@
 
 <footer class="footer">
     <p>
-        <a class="footer-icon-link" href="https://www.instagram.com/nambdi_fr/" target=" _blank"
+
+        <a class="footer-icon-link" href="https://www.instagram.com/nambdi_fr/" target="_blank"
             rel="noopener noreferrer" aria-label="Instagram">
-            <img src="{{ '../images/instagram_gt_gray.png' | relative_url }}" alt="Instagram Profile">
+            <img src="{{ '/assets/images/instagram_gt_gray.png' | relative_url }}" alt="Instagram Profile">
         </a>
-        <a class="footer-icon-link" href="https://www.youtube.com/channel/rakadeja" target="_blank"
-            rel="noopener noreferrer" aria-label="YouTube">
-            <img src="{{ '../images/youtube_gt_gray.png' | relative_url }}" alt="Youtube Channel">
+
+        <a class="footer-icon-link" href="#" target="_blank" {# Changed placeholder href #} rel="noopener noreferrer"
+            aria-label="YouTube">
+            <img src="{{ '/assets/images/youtube_gt_gray.png' | relative_url }}" alt="Youtube Channel">
         </a>
-        <a class="footer-icon-link" href="YOUR_TIKTOK_URL" target="_blank" rel="noopener noreferrer"
+
+        <a class="footer-icon-link" href="#" target="_blank" rel="noopener noreferrer" {# Changed placeholder href #}
             aria-label="TikTok">
-            <img src="{{ '../images/tik-tok_gt_gray.png' | relative_url }}" alt="TikTok Page">
+            <img src="{{ '/assets/images/tik-tok_gt_gray.png' | relative_url }}" alt="TikTok Page">
         </a>
+
         <a class="footer-icon-link" href="mailto:{{ user_email }}" aria-label="Send Email">
-            <img src="{{ '../images/email.png' | relative_url }}" alt="Email Me">
+            <img src="{{ '/assets/images/email.png' | relative_url }}" alt="Email Me">
         </a>
     </p>
     <p class="footer-text">
         © {{ site.time | date: '%Y' }}
-        <a href="{{ '/' | relative_url }}">Nambdi DeSarno</a>, All rights
-        reserved.
+        <a href="{{ '/' | relative_url }}">Nambdi DeSarno</a>, All rights reserved.
     </p>
     <p class="footer-small-text">
         <a href="https://github.com/Rakadeja">Website designed by Rakadeja @ Blue Marten Designs</a>

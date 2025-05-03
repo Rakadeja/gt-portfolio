@@ -1,6 +1,15 @@
 {% comment %} --- _includes/header/ --- {% endcomment %}
 
 {% assign current_page_url = page.url %} {% comment %} Get the current page's URL {% endcomment %}
+{% assign home_url = '/' | relative_url %}
+{% assign blog_base_url = '/blog/' | relative_url %}
+{% assign blog_check_path = '/blog' | relative_url %}
+{% assign blog_path_len = blog_check_path | size %}
+{% assign current_url_blog_prefix = current_page_url | slice: 0, blog_path_len %}
+{% assign garage_url = '/garage/' | relative_url %}
+{% assign gallery_url = '/gallery/' | relative_url %}
+{% assign videos_url = '/videos/' | relative_url %}
+{% assign contact_url = '/contact/' | relative_url %}
 
 <header>
     <div class="container">
@@ -8,155 +17,97 @@
             <nav>
                 <ul>
                     {% comment %} --- Home Link --- {% endcomment %}
-                    {% assign home_url = '/' | relative_url %}
                     <li {% if current_page_url==home_url %}aria-current="page" {% endif %}>
                         <a href="{{ home_url }}" class="{% if current_page_url == home_url %}active{% endif %}">
-                            <img id="nav-btn-home" src="{{ '../images/gt_icon_home.png' | relative_url }}" />
+
+                            <img id="nav-btn-home" src="{{ '/assets/images/gt_icon_home.png' | relative_url }}"
+                                alt="Home" />
                         </a>
                     </li>
 
-                    {% comment %} --- Blog Link (Workaround for startswith) --- {% endcomment %}
-                    {% assign blog_base_url = '/blog/' | relative_url %}
-                    {% assign blog_check_path = '/blog' | relative_url %}
-                    {% assign blog_path_len = blog_check_path | size %}
-                    {% assign current_url_blog_prefix = current_page_url | slice: 0, blog_path_len %}
+                    {% comment %} --- Blog Link --- {% endcomment %}
                     <li {% if current_page_url==blog_base_url or current_url_blog_prefix==blog_check_path
                         %}aria-current="page" {% endif %}>
                         <a href="{{ blog_base_url }}"
                             class="{% if current_page_url == blog_base_url or current_url_blog_prefix == blog_check_path %}active{% endif %}">
-                            <img id="nav-btn-garage" src="{{ '../images/blog.png' | relative_url }}" />
+
+                            <img id="nav-btn-blog" src="{{ '/assets/images/blog.png' | relative_url }}" alt="Blog" /> {#
+                            Changed ID too #}
                         </a>
                     </li>
 
                     {% comment %} --- Garage Link --- {% endcomment %}
-                    {% assign garage_url = '/garage/' | relative_url %}
                     <li {% if current_page_url==garage_url %}aria-current="page" {% endif %}>
                         <a href="{{ garage_url }}" class="{% if current_page_url == garage_url %}active{% endif %}">
-                            <img id="nav-btn-garage" src="{{ '../images/gt_checker_icon_1.png' | relative_url }}" />
+
+                            <img id="nav-btn-garage" src="{{ '/assets/images/gt_checker_icon_1.png' | relative_url }}"
+                                alt="Garage" />
                         </a>
                     </li>
 
                     {% comment %} --- Gallery Link --- {% endcomment %}
-                    {% assign gallery_url = '/gallery/' | relative_url %}
                     <li {% if current_page_url==gallery_url %}aria-current="page" {% endif %}>
                         <a href="{{ gallery_url }}" class="{% if current_page_url == gallery_url %}active{% endif %}">
-                            <img id="nav-btn-gallery" src="{{ '../images/camera.png' | relative_url }}" />
+
+                            <img id="nav-btn-gallery" src="{{ '/assets/images/camera.png' | relative_url }}"
+                                alt="Gallery" />
                         </a>
                     </li>
 
                     {% comment %} --- Videos Link --- {% endcomment %}
-                    {% assign videos_url = '/videos/' | relative_url %}
                     <li {% if current_page_url==videos_url %}aria-current="page" {% endif %}>
                         <a href="{{ videos_url }}" class="{% if current_page_url == videos_url %}active{% endif %}">
-                            <img id="nav-btn-videos" src="{{ '../images/video-camera.png' | relative_url }}" />
+
+                            <img id="nav-btn-videos" src="{{ '/assets/images/video-camera.png' | relative_url }}"
+                                alt="Videos" />
                         </a>
                     </li>
 
                     {% comment %} --- Contact Link --- {% endcomment %}
-                    {% assign contact_url = '/contact/' | relative_url %}
                     <li {% if current_page_url==contact_url %}aria-current="page" {% endif %}>
                         <a href="{{ contact_url }}" class="{% if current_page_url == contact_url %}active{% endif %}">
-                            <img id="nav-btn-contact" src="{{ '../images/gt_icon_info_dark.png' | relative_url }}" />
+
+                            <img id="nav-btn-contact" src="{{ '/assets/images/gt_icon_info_dark.png' | relative_url }}"
+                                alt="Contact" />
                         </a>
                     </li>
+                </ul>
             </nav>
 
             <div class="gt-pagination">
                 <ul>
-                    {% if current_page_url != blog_base_url %}
-                    <li id="gt-pagination-primary">
-                        <a href="{{ current_page_url }}">{{ page.title }}</a>
+                    {% assign primary_tab_shown = false %}
+                    {% if page.url == '/' %}
+                    <li id="gt-pagination-primary"><a href="{{ home_url }}">{{ page.title }}</a></li>
+                    {% assign primary_tab_shown = true %}
+                    {% elsif page.url == '/blog/' or page.url == '/gallery/' or page.url == '/garage/' or
+                    page.url == '/videos/' or page.url == '/contact/' %}
+                    <li id="gt-pagination-primary"><a href="{{ page.url | relative_url }}">{{ page.title }}</a>
                     </li>
-                    {%endif%}
-
-                    {% if current_page_url != gallery_url and current_url_blog_prefix != blog_check_path and
-                    current_page_url != home_url and current_page_url != videos_url and current_page_url !=
-                    contact_url and current_page_url != garage_url%}
-                    <li id="gt-pagination-secondary">
-                        <a href="{{ current_page_url }}">{{ page.title }}</a>
-                    </li>
-                    {%endif%}
-
-                    {% if current_page_url==blog_base_url %}
-                    <li id="gt-pagination-primary">
-                        <a href="{{ blog_base_url }}">{{ page.title }}</a>
-                    </li>
-                    {%endif%}
+                    {% assign primary_tab_shown = true %}
+                    {% endif %}
 
                     {% if page.layout == 'post' %}
-                    <li id="gt-pagination-secondary">
-                        <a href="{{ current_page_url }}">{{ page.title }}</a>
+                    <li id="gt-pagination-secondary"><a href="{{ page.url | relative_url }}">{{ page.title
+                            }}</a></li>
+                    {% assign primary_tab_shown = true %} {# If post shown, assume primary (Blog) isn't needed
+                    separately? Adjust logic as needed #}
+                    {% elsif page.layout == 'gallery-detail' %}
+                    <li id="gt-pagination-secondary"><a href="{{ page.url | relative_url }}">{{ page.title
+                            }}</a></li>
+                    {% assign primary_tab_shown = true %}
+                    {% endif %}
+
+                    {% if primary_tab_shown == false %}
+                    <li id="gt-pagination-primary"><a href="{{ page.url | relative_url }}">{{ page.title }}</a>
                     </li>
                     {% endif %}
 
-                    {% if page.layout == 'gallery-detail' %}
-                    {% comment %} Assuming you have a 'title' in the front matter of your gallery detail pages {%
-                    endcomment %}
-                    <li id="gt-pagination-secondary">
-                        <a href="{{ current_page_url }}">{{ page.title }}</a>
-                    </li>
-                    {% comment %} Add 'INFORMATION' link if needed, maybe based on another front matter variable or URL
-                    pattern {% endcomment %}
-                    {# Example based on a hypothetical 'show_info_link' front matter variable #}
                     {% if page.show_info_link %}
                     <li id="gt-pagination-tertiary">
-                        <a href="#">INFORMATION</a> {# Update href as needed #}
+                        <a href="#">INFORMATION</a>
                     </li>
                     {% endif %}
-                    {% endif %}
-
-
-                    <!-- {% if current_page_url != gallery_url and current_url_blog_prefix != blog_check_path and
-                    current_page_url != home_url %}
-                    <li id="gt-pagination-primary">
-                        <a href="{{ gallery_url }}">Gallery</a>
-                    </li>
-                    {% endif %} -->
-                    <!-- 
-                    {% comment %} Show specific car name if on a gallery detail page {% endcomment %}
-                    {% if page.layout == 'gallery-detail' %}
-                    {% comment %} Assuming you have a 'title' in the front matter of your gallery detail pages {%
-                    endcomment %}
-                    <li id="gt-pagination-secondary">
-                        <a href="{{ current_page_url }}">{{ page.title }}</a>
-                    </li>
-                    {% comment %} Add 'INFORMATION' link if needed, maybe based on another front matter variable or URL
-                    pattern {% endcomment %}
-                    {# Example based on a hypothetical 'show_info_link' front matter variable #}
-                    {% if page.show_info_link %}
-                    <li id="gt-pagination-tertiary">
-                        <a href="#">INFORMATION</a> {# Update href as needed #}
-                    </li>
-                    {% endif %}
-                    {% endif %}
-
-                    {% comment %} Add other conditions for different sections (e.g., Blog post titles) {% endcomment %}
-                    {% if page.layout == 'post' %}
-                    <li>
-                        <a href="{{ blog_base_url }}">Blog</a>
-                    </li>
-                    <li>
-                        <a href="{{ current_page_url }}">{{ page.title }}</a>
-                    </li>
-                    {% endif %}
-
-                    {% comment %} You'll need similar logic for 'My Garage', 'Contact', etc. {% endcomment %}
-                    {% if current_page_url == '/garage/' | relative_url %}
-                    <li>
-                        <a href="{{ current_page_url }}">My Garage</a>
-                    </li>
-                    {% endif %}
-                    {% if current_page_url == '/contact/' | relative_url %}
-                    <li>
-                        <a href="{{ current_page_url }}">Contact</a>
-                    </li>
-                    {% endif %}
-                    {% if current_page_url == '/social/' | relative_url %}
-                    <li>
-                        <a href="{{ current_page_url }}">Social</a>
-                    </li>
-                    {% endif %} -->
-
 
                 </ul>
             </div>
