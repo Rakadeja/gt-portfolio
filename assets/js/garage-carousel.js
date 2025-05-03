@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!lightboxEnabled || !imageSrc) return;
 
         // Assume imageSrc from dataset is root-relative (starts with /)
-        const fullImageSrc = imageSrc.startsWith('/') ? `<span class="math-inline">\{basePath\}</span>{imageSrc}` : imageSrc;
+        const fullImageSrc = imageSrc.startsWith('/') ? `${basePath}${imageSrc}` : imageSrc;
 
         lightboxImage.setAttribute('src', fullImageSrc);
         lightboxImage.setAttribute('alt', imageTitle || 'Enlarged image');
