@@ -16,11 +16,10 @@ permalink: /gallery/
         <div class="gallery-carousel">
             <ul class="carousel-track">
                 {% for item in gallery_items %}
-                <li class="carousel-slide" data-index="{{ forloop.index0 }}" {# Add index here too #}
-                    data-title="{{ item.title | escape }}" data-description="{{ item.description | escape }}"
-                    data-car="{{ item.car | escape }}">
+                <li class="carousel-slide" data-index="{{ forloop.index0 }}" data-title="{{ item.title | escape }}"
+                    data-description="{{ item.description | escape }}" data-car="{{ item.car | escape }}">
                     <img src="{{ item.image | relative_url }}" alt="{{ item.title | escape }}" loading="lazy"
-                        class="carousel-main-image"> {# Added class #}
+                        class="carousel-main-image">
                 </li>
                 {% endfor %}
             </ul>

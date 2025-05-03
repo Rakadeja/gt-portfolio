@@ -16,8 +16,8 @@ permalink: /garage/
             <div class="gallery-carousel garage-carousel">
                 <ul class="carousel-track">
                     {% for car_item in garage_cars %}
-                    <li class="carousel-slide" data-index="{{ forloop.index0 }}" {# Embed all car data as JSON string
-                        for easy JS access #} data-car-info="{{ car_item | jsonify | escape }}">
+                    <li class="carousel-slide" data-index="{{ forloop.index0 }}"
+                        data-car-info="{{ car_item | jsonify | escape }}">
                         {% if car_item.images.size > 0 %}
                         <img src="{{ car_item.images[0].url | relative_url }}"
                             alt="{{ car_item.nickname | default: car_item.model }} - {{ car_item.images[0].title | default: 'Main image' }}"
@@ -25,7 +25,7 @@ permalink: /garage/
                         {% else %}
                         <img src="/assets/images/placeholder.png"
                             alt="{{ car_item.nickname | default: car_item.model }} - No image available" loading="lazy"
-                            class="carousel-main-image"> {# Placeholder #}
+                            class="carousel-main-image">
                         {% endif %}
                     </li>
                     {% endfor %}
@@ -81,7 +81,6 @@ permalink: /garage/
 <div class="related-images-section">
     <h4>Related Images</h4>
     <div id="garage-info-related-images" class="related-images-grid">
-        {# Populated by JavaScript #}
     </div>
 </div>
 {% endif %}

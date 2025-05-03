@@ -31,8 +31,7 @@
                         <a href="{{ blog_base_url }}"
                             class="{% if current_page_url == blog_base_url or current_url_blog_prefix == blog_check_path %}active{% endif %}">
 
-                            <img id="nav-btn-blog" src="{{ '/assets/images/blog.png' | relative_url }}" alt="Blog" /> {#
-                            Changed ID too #}
+                            <img id="nav-btn-blog" src="{{ '/assets/images/blog.png' | relative_url }}" alt="Blog" />
                         </a>
                     </li>
 
@@ -90,8 +89,7 @@
                     {% if page.layout == 'post' %}
                     <li id="gt-pagination-secondary"><a href="{{ page.url | relative_url }}">{{ page.title
                             }}</a></li>
-                    {% assign primary_tab_shown = true %} {# If post shown, assume primary (Blog) isn't needed
-                    separately? Adjust logic as needed #}
+                    {% assign primary_tab_shown = true %}
                     {% elsif page.layout == 'gallery-detail' %}
                     <li id="gt-pagination-secondary"><a href="{{ page.url | relative_url }}">{{ page.title
                             }}</a></li>
