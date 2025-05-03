@@ -1,17 +1,20 @@
 @keyframes fadeOpacityIn {
-	to {
-		opacity: 1;
-	}
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: translateY(-20px); /* Start above */
+        transform: translateY(-20px);
+        /* Start above */
     }
+
     100% {
         opacity: 1;
-        transform: translateY(0); /* End in position */
+        transform: translateY(0);
+        /* End in position */
     }
 }
 
@@ -20,22 +23,127 @@
 }
 
 @keyframes wiggle-scale {
-    0% { transform: scale(1.2) translateX(0); }
-    25% { transform: scale(1.2) translateX(-2px) rotateY(8deg); }
-    50% { transform: scale(1.2) translateX(1px) rotateX(0deg); }
-    75% { transform: scale(1.2) translateX(-2px) rotateX(-12deg); }
-    100% { transform: scale(1.2) translateX(0); }
+    0% {
+        transform: scale(1.2) translateX(0);
+    }
+
+    25% {
+        transform: scale(1.2) translateX(-2px) rotateY(8deg);
+    }
+
+    50% {
+        transform: scale(1.2) translateX(1px) rotateX(0deg);
+    }
+
+    75% {
+        transform: scale(1.2) translateX(-2px) rotateX(-12deg);
+    }
+
+    100% {
+        transform: scale(1.2) translateX(0);
+    }
 }
 
-@keyframes wiggle { 
-	0% { transform: translateX(0); } 
-	25% { transform: translateX(-2px) rotateY(8deg); } 
-	50% { transform: translateX(1px) rotateX(0deg); } 
-	75% { transform: translateX(-2px) rotateX(-12deg); } 
-	100% { transform: translateX(0); }
- }
+@keyframes wiggle {
+    0% {
+        transform: translateX(0);
+    }
 
- .wiggle { 
-	animation: wiggle 1.2s ease-in-out;
+    25% {
+        transform: translateX(-2px) rotateY(8deg);
+    }
+
+    50% {
+        transform: translateX(1px) rotateX(0deg);
+    }
+
+    75% {
+        transform: translateX(-2px) rotateX(-12deg);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.wiggle {
+    animation: wiggle 1.2s ease-in-out;
     animation-fill-mode: forwards;
- } 
+}
+
+$base-flicker-color: var(--color-gt-white);
+$flicker-highlight-color: white;
+// $flicker-highlight-color: var(--color-gt-yellow);
+
+@keyframes text-flicker {
+    0% {
+        color: $base-flicker-color
+    }
+
+    50% {
+        color: $flicker-highlight-color
+    }
+
+    100% {
+        color: $base-flicker-color
+    }
+}
+
+.text-flicker {
+    animation: text-flicker var(--animation-flicker-rate) infinite;
+    color: $base-flicker-color;
+}
+
+@keyframes bg-color-flicker {
+    0% {
+        background-color: $base-flicker-color
+    }
+
+    50% {
+        background-color: $flicker-highlight-color
+    }
+
+    100% {
+        background-color: $base-flicker-color
+    }
+}
+
+.bg-color-flicker {
+    animation: bg-color-flicker var(--animation-flicker-rate) infinite;
+    background-color: $base-flicker-color;
+}
+
+@keyframes filter-flicker {
+
+    0%,
+    100% {
+        filter: brightness(1) contrast(1);
+        /* Normal appearance */
+    }
+
+    50% {
+        filter: brightness(2) contrast(0.8);
+        border-color: white;
+        border-radius: 2px;
+        /* Brighter and less contrast */
+    }
+}
+
+.filter-flicker-image {
+    animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+}
+
+@keyframes smooth-footer-reveal {
+    from { /* Start from further down and invisible */
+      bottom: -5rem;
+      opacity: 0;
+    }
+    to { /* Ends at the resting state */
+      bottom: -3rem;
+      opacity: 0.72;
+    }
+  }
+
+.smooth-footer-appear {
+    animation: smooth-footer-reveal var(--animation-transition-time) ease forwards;
+}

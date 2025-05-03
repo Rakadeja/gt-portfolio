@@ -1,43 +1,135 @@
 footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  max-width: none;
+    position: fixed;
+    bottom: -5rem;
+    left: 0;
+    width: 100%;
+    max-width: none;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0.88em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.88em;
 
-  // z-index: -1;
+    opacity: 0;
+    z-index: 2;
 
-  text-align: center;
-  // border: 2px solid #fff;
-  background-color: var(--color-brand);
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 255, 0) 35%,
-    var(--color-accent) 72%,
-    var(--color-primary) 75%,
-    black
-  );
+    text-align: center;
+
+    background-color: var(--color-gt-gray-darkest);
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 255, 0) 15%,
+            var(--color-gt-gray-dark) 50%,
+            var(--color-gt-gray-darkest) 64%,
+            black);
+
+    /* Keep the transition for bottom if you still need it for other purposes,
+    but add a transition for transform for the hover effect. */
+    transition: transform 0.16s ease-in-out, opacity 0.16s ease-in-out;
+
+    /* Apply the initial reveal animation */
+    animation: smooth-footer-reveal 1121ms ease forwards;
+
+    &:hover {
+        /* Use transform to move the footer up relative to its position set by the animation */
+        transform: translateY(-3rem); /* Move upwards by 3rem */
+        opacity: 1 !important;
+    }
 }
 
-footer svg {
-  fill: var(--color-brand);
-  width: 2.2em;
-  height: 2.2em;
-  margin-right: 0.5em;
+footer img {
+    width: 1.3em;
+    height: 1.3em;
+    display: block;
+    object-fit: contain;
+
+    &:hover {
+        animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+    }
+
+    &:active {
+        animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+    }
+
+    &:focus {
+        &:not(:focus-visible) {
+            animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+        }
+    }
 }
 
-footer a {
-  font-weight: bold;
+.footer-icon-link {
+        position: relative;
+        list-style-type: none;
+        padding: 0.42rem;
+        margin: 0 0.24em 0 0.24em;
+        background-color: var(--color-gt-gold);
+        border-radius: var(--border-radius);
+    
+        box-shadow: var(--shadow-inset);
+    
+        transition: color 0.16s ease-in-out, background-color 0.8s ease-in-out,
+            border-color 0.16s ease-in-out, box-shadow 0.16s ease-in-out;
+    
+        &:hover {
+            border-radius: var(--border-radius);
+            border-color: var(--color-gt-orange);
+            background-color: var(--color-gt-yellow);
+            box-shadow: inset 0 -1px 3px 3px var(--color-gt-gold);
+            // animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+        }
+    
+        &:active {
+            background-color: var(--color-gt-yellow);
+            // animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+        }
 }
 
 footer p {
-  font-weight: 500;
-  margin: 0;
-  color: var(--color-brand);
+    font-weight: 500;
+    margin: 0;
+    color: var(--color-gt-white);
+
+    list-style: none;
+    list-style-type: none;
+    position: relative;
+    margin: 0 4.2em 0.48em 4.2em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center; // This can still be used to vertically align the content within the li if needed
+    background-size: contain;
+}
+
+.footer-text {
+    font-weight: 200;
+    font-size: 0.87rem;
+    margin: 0;
+    color: var(--color-gt-white);
+
+    list-style: none;
+    list-style-type: none;
+}
+
+.footer-text a {
+    padding-left: 0.21em;
+}
+
+.footer-small-text {
+    font-weight: 100;
+    font-size: 0.64rem;
+    margin: 0;
+    color: var(--color-gt-white);
+
+    list-style: none;
+    list-style-type: none;
+}
+
+.footer-small-text a {
+    color: var(--color-gt-gray);
+
+    &:hover {
+        color: #356bff;
+        text-decoration: underline;
+        transition: color 0.16s ease-in-out;
+    }
 }

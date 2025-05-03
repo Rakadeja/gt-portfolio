@@ -21,3 +21,13 @@ For local editing and testing, the following extensions are recommended:
 ## Optional Extensions
 
 These are more personal preference or ease-of-use extensions.
+
+## Credits
+
+- [Camera icon by Freepik - Flaticon](https://www.flaticon.com/free-icons/camera)
+- [Cinema icon by Good Ware - Flaticon](https://www.flaticon.com/free-icons/cinema)
+- [Blog icon by Arkinasi - Flaticon](https://www.flaticon.com/free-icons/blog)
+
+- [Instagram icon by cobynecz - Flaticon](https://www.flaticon.com/free-icons/instagram)
+- [Tiktok icon by Freepik - Flaticon](https://www.flaticon.com/free-icons/tiktok)
+- [Email icon by Freepik - Flaticon](https://www.flaticon.com/free-icons/email)

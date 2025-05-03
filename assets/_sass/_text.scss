@@ -1,70 +1,75 @@
 h1 {
-	color: var(--color-text-heading);
-	font-weight: 400;
-	font-size: 2rem;
-	text-align: center;
+    color: var(--color-gt-gold);
+    font-weight: 400;
+    font-size: 2rem;
+    text-align: center;
 }
 
 h2 {
-	color: var(--color-text-heading);
-	font-weight: 600;
-	font-size: 1.6rem;
+    color: var(--color-gt-gold);
+    font-weight: 600;
+    font-size: 1.6rem;
 }
 
 p {
-	color: var(--color-text);
-	font-weight: 400;
-	line-height: 1.5;
+    color: var(--color-gt-white);
+    font-weight: 400;
+    line-height: 1.5;
 }
 
 a {
-	color: var(--color-brand);
-	text-decoration: none;
-	&:hover {
-		text-decoration: underline;
-	}
+    color: var(--color-gt-yellow);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .page-title {
-	color: var(--color-text-heading);
-	font-size: 4rem;
-	font-weight: 600;
-//     margin: 0;
-//     margin-block-start: 0;
-//     margin-block-end: 0;
-//     position: absolute;
-//     top: 0%;
-// margin-top: 0%;
-// padding-top: 0%;
-// width: 100%;
-// height: 100%;
+    color: var(--color-gt-white);
+    font-size: 4rem;
+    font-weight: 600;
+    //     margin: 0;
+    //     margin-block-start: 0;
+    //     margin-block-end: 0;
+    //     position: absolute;
+    //     top: 0%;
+    // margin-top: 0%;
+    // padding-top: 0%;
+    // width: 100%;
+    // height: 100%;
 }
 
 .page-description {
-	color: var(--color-text);
+    color: var(--color-gt-white);
 }
 
 .text-column {
     display: flex;
-	max-width: 48rem;
-	flex: 0.6;
-	flex-direction: column;
+    max-width: 48rem;
+    flex: 0.6;
+    flex-direction: column;
     align-items: stretch;
     align-content: stretch;
-	justify-content: center;
-    margin-left: auto;  /* Use separate margins for clarity */
+    justify-content: center;
+    margin-left: auto;
+    /* Use separate margins for clarity */
     margin-right: auto;
-    margin-top: 0;    /* Adjust top/bottom margin as needed */
+    margin-top: 0;
+    /* Adjust top/bottom margin as needed */
     margin-bottom: 0;
-    padding-top: 2rem; /* Add padding instead of relying on justify-content */
-    padding-bottom: 2rem; /* Add padding */
+    padding-top: 2rem;
+    /* Add padding instead of relying on justify-content */
+    padding-bottom: 2rem;
+    /* Add padding */
 }
 
 ol {
-	line-height: 1.6rem;
-	color: var(--color-text);
+    line-height: 1.6rem;
+    color: var(--color-gt-white);
 }
 
 li {
-	list-style-type: disc;
+    list-style-type: disc;
 }

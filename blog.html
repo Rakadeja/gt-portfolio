@@ -1,0 +1,49 @@
+---
+# Front Matter block
+layout: default
+title: Blog
+description: The yap zone.
+slug: blog
+permalink: /blog/
+---
+
+<h1 class="page-title">Blog</h1>
+<div class="hbox">
+    <section class="text-column">
+        <ul class="post-list">
+            {% for post in site.posts %}
+            <li>
+                <h2>
+                    <a class="post-link" href="{{ post.url | relative_url }}">
+                        {{ post.title | escape }}
+                    </a>
+                </h2>
+                <span class="post-meta"> {{ post.date | date: "%B %d, %Y" }} </span>
+
+                <div class="post-excerpt">{{ post.excerpt }}</div>
+                <a href="{{ post.url | relative_url }}">Read More »</a>
+            </li>
+            {% else %}
+            <li>No posts found.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+<!-- Optional: Add pagination links here -->
+<!-- Jekyll Paginate V1 (if enabled): -->
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">« Newer Posts</a>
+    {% else %}
+    <span class="previous disable">« Newer Posts</span>
+    {% endif %}
+    <span class="page_number">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}" class="next">Older Posts »</a>
+    {% else %}
+    <span class="next disable">Older Posts »</span>
+    {% endif %}
+</div>
+{% endif %}
+</div>

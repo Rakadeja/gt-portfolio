@@ -1,107 +1,294 @@
 header {
-    background-image: url('../images/gt_checkered_header.png');
-    background-repeat: repeat-x;
-}
-
-.navbar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0;
-    margin: 0;
+
+    background-image: url('/assets/images/gt_checkered_header.png');
+    background-repeat: repeat-x;
+    background-size: contain;
     width: 100%;
+    height: 7.2rem;
+    position: absolute;
+
+    // z-index: 3; // We put it above everything else because of that faded image
+
     animation: fadeIn 0.64s ease forwards;
-    // background-color: var(--color-blue-4);
+}
 
-    .brand-logo {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 0 0 0.87em;
-        overflow: show;
-        // background-color: var(--color-blue-1);
+.navbar {
+    height: 100%;
+    /* .navbar should take full height of .container */
+    display: flex;
+    /* Make .navbar a flex container */
+    flex-direction: row;
+    /* Arrange children (nav and .gt-pagination) in a row */
+    justify-content: space-between;
+    /* Push nav to the left, .gt-pagination to the right */
+    align-items: flex-end;
+    /* Align nav and .gt-pagination to the bottom */
+    width: 100%;
+}
 
-        img {
-            height: 4.2em;
+nav {
+    display: flex;
+    justify-content: flex-start; // Aligns items to the start of the flex container horizontally
+    align-items: flex-end; // Aligns items to the end of the flex container vertically (the bottom)
+}
 
-            &:hover {
-                animation: wiggle 1.2s infinite ease-in-out;
-            }
-        }
+nav ul {
+    list-style: none;
+    list-style-type: none;
+    position: relative;
+    margin: 0 4.2em 0.48em 4.2em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center; // This can still be used to vertically align the content within the li if needed
+    background-size: contain;
+}
+
+nav ul li {
+    position: relative;
+    list-style-type: none;
+    padding: 0.42rem;
+    margin: 0 0.24em 0 0.24em;
+    background-color: var(--color-gt-gold);
+    border-radius: var(--border-radius);
+
+    box-shadow: var(--shadow-inset);
+
+    transition: color 0.16s ease-in-out, background-color 0.8s ease-in-out,
+        border-color 0.16s ease-in-out, box-shadow 0.16s ease-in-out;
+
+    &:hover {
+        border-radius: var(--border-radius);
+        border-color: var(--color-gt-orange);
+        background-color: var(--color-gt-yellow);
+        box-shadow: inset 0 -1px 3px 3px var(--color-gt-gold);
+        // animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
     }
 
-    .container {
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        border-radius: 0 var(--corner-roundness) 0 0;
-        box-shadow: inset 0px 0px 42px 0px rgba(0, 0, 0, 0.512);
-        border-collapse: collapse;
-        width: 100%;
+    &:active {
+        background-color: var(--color-gt-yellow);
+        // animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+    }
+}
+
+nav ul li a {
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+
+    // &:hover {
+    //     color: cyan;
+    //     text-decoration: underline;
+    //     transition: color 0.16s ease-in-out;
+    // }
+
+    // &:active {
+    //     color: red;
+    //     text-decoration: underline;
+    //     transition: color 0.16s ease-in-out;
+    // }
+
+    // &:focus {
+    //     &:not(:focus-visible) {
+    //         outline: none;
+    //         color: white;
+    //     }
+    // }
+}
+
+nav ul li a img {
+    width: 1.3em;
+    height: 1.3em;
+    display: block;
+    object-fit: contain;
+
+    &:hover {
+        animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
     }
 
-    nav {
-        display: flex;
+    &:active {
+        animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+    }
 
-        ul {
-            list-style: none;
-            list-style-type: none;
-            position: relative;
-            padding: 0.12em;
-            margin: 0 4.2em 0 4.2em;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            // background-color: var(--color-blue-4);
-            background-size: contain;
-
-            li {
-                position: relative;
-                list-style-type: none;
-                padding: 0.66rem;
-                margin: 0 0.8em 0 0.8em;
-
-                transition: color 0.16s ease-in-out, background-color 0.16s ease-in-out,
-                    border-color 0.16s ease-in-out, box-shadow 0.16s ease-in-out;
-
-                &:hover {
-                    border-radius: var(--border-radius);
-                    border-color: var(--color-yellow-1);
-                    box-shadow: inset 0px 5px 18px rgba(0, 0, 0, 0.303);
-                }
-
-                &:active {
-                    background-color: var(--color-brand);
-                }
-
-                a {
-                    font-size: 1.6rem;
-                    font-weight: 600;
-                    text-align: center;
-                    white-space: nowrap;
-
-                    &:hover {
-                        color: cyan;
-                        text-decoration: underline;
-                        transition: color 0.16s ease-in-out;
-                    }
-
-                    &:active {
-                        color: red;
-                        text-decoration: underline;
-                        transition: color 0.16s ease-in-out;
-                    }
-
-                    &:focus {
-                        &:not(:focus-visible) {
-                            outline: none;
-                            color: white;
-                        }
-                    }
-                }
-            }
+    &:focus {
+        &:not(:focus-visible) {
+            animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
         }
+    }
+}
+
+
+#nav-btn-home {
+    background-image: url('/assets/images/gt_icon_home.png') no-repeat center;
+    background-size: contain;
+}
+
+#nav-btn-garage {
+    background-image: url('/assets/images/gt_checker_icon_1.png') no-repeat center;
+    background-size: contain;
+}
+
+#nav-btn-gallery {
+    background-image: url('/assets/images/gt_icon_camera.png') no-repeat center;
+    background-size: contain;
+}
+
+#nav-btn-contact {
+    background-image: url('/assets/images/gt_icon_info_dark.png') no-repeat center;
+    background-size: contain;
+}
+
+/* Style for the new pagination section */
+.gt-pagination {
+    display: flex;
+    /* Use flexbox for the pagination items */
+    align-items: flex-end;
+    /* Align the pagination ul to the bottom */
+    height: 100%;
+    // width: 100%;
+    /* Take full height to align properly with nav */
+}
+
+.gt-pagination ul {
+    list-style: none;
+    list-style-type: none;
+    padding: 0;
+    /* Adjust padding as needed */
+    margin: 0 -1em 2.1em 0;
+    /* Add margin to the right, remove left margin */
+    display: flex;
+    /* Flex container for the pagination li */
+    align-items: top;
+    /* Align li content vertically */
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.gt-pagination ul li {
+    list-style-type: none;
+    padding: 0.1em 5em 0.1em 0.72rem;
+    margin: 0;
+
+    opacity: 0.9;
+
+    box-shadow: var(--shadow-drop);
+
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    transition: background-color 0.8s ease-in-out,
+        border-color 0.16s ease-in-out, box-shadow 0.16s ease-in-out, opacity 0.8s ease-in-out;
+
+    &:hover {
+        border-radius: var(--border-radius);
+        border-color: var(--color-gt-gray-light);
+        opacity: 1;
+        box-shadow: inset 8px 0 12px 0px var(--color-gt-gray-light);
+
+    }
+
+    &:active {
+        background-color: var(--color-gt-gray-light);
+        opacity: 1;
+        box-shadow: inset 4px 0 8px 4px var(--color-gt-gray-light);
+    }
+}
+
+.gt-pagination ul li a {
+    font-size: 1.6rem;
+    /* Match font size of nav a */
+    font-weight: 600;
+    font-stretch: expanded;
+    /* Match font weight */
+    text-align: center;
+    white-space: nowrap;
+    color: var(--color-gt-white);
+    /* Set initial color */
+    text-decoration: none;
+    /* Remove default underline */
+
+
+    &:hover {
+        color: white;
+        text-decoration: none;
+        transition: color 0.16s ease-in-out;
+        animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+    }
+
+    &:active {
+        color: white;
+        text-decoration: underline;
+        transition: color 0.16s ease-in-out;
+        animation: filter-flicker var(--animation-flicker-rate) infinite step-end;
+    }
+
+    &:focus {
+        &:not(:focus-visible) {
+            outline: none;
+            color: white;
+        }
+    }
+}
+
+#gt-pagination-primary {
+    background-color: var(--color-gt-gray-mid);
+    border-radius: 1em 0 0 1em;
+    z-index: 2;
+}
+
+#gt-pagination-secondary {
+    background-color: var(--color-gt-gray-mid);
+    border-radius: 1em 0 0 1em;
+    text-transform: uppercase;
+
+    margin-left: -1em;
+
+    box-shadow: var(--shadow-cut);
+
+    z-index: 3;
+
+    transition: background-color 0.8s ease-in-out,
+        border-color 0.16s ease-in-out, opacity 0.8s ease-in-out;
+
+    &:hover {
+        border-color: var(--color-gt-gray-light);
+        opacity: 1;
+
+    }
+
+    &:active {
+        background-color: var(--color-gt-gray-light);
+        opacity: 1;
+    }
+}
+
+#gt-pagination-tertiary {
+    background-color: var(--color-gt-orange);
+    border-radius: 1em 0 0 1em;
+    text-transform: uppercase;
+    margin-left: -1em;
+
+    box-shadow: var(--shadow-cut);
+
+    z-index: 4;
+
+    transition: background-color 0.8s ease-in-out,
+        border-color 0.16s ease-in-out, opacity 0.8s ease-in-out;
+
+    &:hover {
+        border-color: var(--color-gt-gray-light);
+        background-color: var(--gt-orange-highlight);
+        opacity: 1;
+
+    }
+
+    &:active {
+        background-color: var(--color-gt-gray-light);
+        background-color: var(--gt-orange-highlight);
+        opacity: 1;
     }
 }

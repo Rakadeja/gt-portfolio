@@ -1,8 +1,10 @@
 .container {
-	padding: 0.88em;
-	border-radius: var(--corner-roundness);
-	// box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.128);
-	// border-collapse: collapse;
+    padding: 0.88em;
+    border-radius: var(--corner-roundness);
+    height: 100%;
+    width: 100%;
+    // box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.128);
+    // border-collapse: collapse;
 }
 
 .container-flex {
@@ -22,31 +24,31 @@
 
     border-radius: var(--corner-roundness);
     box-shadow: var(--shadow-drop);
-    background-clip: padding-box, border-box; 
+    background-clip: padding-box, border-box;
     background-origin: border-box;
     background-color: var(--color-primary);
     background: linear-gradient(var(--color-blue-4) 0%, var(--color-primary) 50%, black);
 }
 
 .flex-grid-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: stretch;
-	background: var(--gradient-1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    background: var(--gradient-1);
 }
 
 .flex-grid-item {
     // flex: 0 0 100%;
     padding: 0.1em;
-	margin: 0.1em;
-	background-color: var(--color-blue-2);
-	opacity: 0.5;
+    margin: 0.1em;
+    background-color: var(--color-blue-2);
+    opacity: 0.5;
 
-	transition: color 0.16s ease-in-out,
-	opacity 0.16s ease-in-out;
+    transition: color 0.16s ease-in-out,
+        opacity 0.16s ease-in-out;
 
-	&:hover {
+    &:hover {
         opacity: 1;
     }
 }

@@ -1,0 +1,101 @@
+---
+# Front Matter block
+layout: default
+title: My Garage
+slug: garage
+description: my metal box collection
+permalink: /garage/
+---
+
+{% assign garage_cars = site.data.my_garage %}
+
+<div class="container garage-container">
+    <div class="garage-carousel-column">
+        {% if garage_cars.size > 0 %}
+        <div class="gallery-carousel-wrapper garage-carousel-wrapper">
+            <div class="gallery-carousel garage-carousel">
+                <ul class="carousel-track">
+                    {% for car_item in garage_cars %}
+                    <li class="carousel-slide" data-index="{{ forloop.index0 }}" {# Embed all car data as JSON string
+                        for easy JS access #} data-car-info="{{ car_item | jsonify | escape }}">
+                        {% if car_item.images.size > 0 %}
+                        <img src="{{ car_item.images[0].url | relative_url }}"
+                            alt="{{ car_item.nickname | default: car_item.model }} - {{ car_item.images[0].title | default: 'Main image' }}"
+                            loading="lazy" class="carousel-main-image">
+                        {% else %}
+                        <img src="/assets/images/placeholder.png"
+                            alt="{{ car_item.nickname | default: car_item.model }} - No image available" loading="lazy"
+                            class="carousel-main-image"> {# Placeholder #}
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <button class="carousel-button carousel-button-prev" aria-label="Previous image">
+                <img src="/assets/images/gt_stylized_arrow_left.png" alt="Previous image">
+            </button>
+            <button class="carousel-button carousel-button-next" aria-label="Next image">
+                <img src="/assets/images/gt_stylized_arrow_right.png" alt="Next image">
+            </button>
+        </div>
+        {% else %}
+        <p>No cars found in _data/my_garage.yml. Please update the file structure.</p>
+        {% endif %}
+    </div>
+
+    <div class="garage-info-panel">
+        {% if garage_cars.size > 0 %}
+        {% assign first_car = garage_cars[0] %}
+        <h2 id="garage-info-nickname">{{ first_car.nickname | default: first_car.model }}</h2>
+        <h3 id="garage-info-makemodel">{{ first_car.make }} {{ first_car.model }}</h3>
+        <div class="specs-section">
+            <h4>Specifications</h4>
+            <ul class="specs-list">
+                <li><strong>Year:</strong> <span id="garage-info-year">{{ first_car.year }}</span></li>
+                <li><strong>Engine:</strong> <span id="garage-info-engine">{{ first_car.engine }}</span></li>
+                <li><strong>Power:</strong> <span id="garage-info-power">{{ first_car.power }}</span></li>
+                <li><strong>Torque:</strong> <span id="garage-info-torque">{{ first_car.torque }}</span></li>
+                <li><strong>Color:</strong> <span id="garage-info-color">{{ first_car.color }}</span></li>
+                <li><strong>Purchased:</strong> <span id="garage-info-purchase">{{ first_car.purchase_date | date: "%B
+                        %d, %Y" }}</span></li>
+            </ul>
+        </div>
+        <div class="description-section">
+            <h4>Description</h4>
+            <p id="garage-info-description">{{ first_car.description }}</p>
+        </div>
+        <div class="mods-section">
+            <h4>Modifications</h4>
+            <ul id="garage-info-mods" class="mods-list">
+                {% for mod in first_car.mods %}<li>{{ mod }}</li>{% endfor %}
+            </ul>
+        </div>
+
+        {% else %}
+        <p>Add cars to _data/my_garage.yml</p>
+        {% endif %}
+    </div>
+</div>
+{% if garage_cars.size > 0 %}
+<div class="related-images-section">
+    <h4>Related Images</h4>
+    <div id="garage-info-related-images" class="related-images-grid">
+        {# Populated by JavaScript #}
+    </div>
+</div>
+{% endif %}
+
+
+<div id="lightbox" class="lightbox-overlay">
+    <div class="lightbox-content">
+        <img src="" alt="" class="lightbox-image">
+        <div class="lightbox-caption">
+            <h4 id="lightbox-title"></h4>
+            <p id="lightbox-description"></p>
+        </div>
+    </div>
+</div>
+
+
+<script src="{{ '/assets/js/garage-carousel.js' | relative_url }}" defer></script>

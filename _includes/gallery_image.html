@@ -1,0 +1,21 @@
+{% comment %} --- _includes/gallery_card.html ---
+Renders a card for a single gallery piece.
+
+Expects:
+- include.title
+- include.category
+- include.description
+- include.image_url (full path)
+{% endcomment %}
+
+{% assign card_title = include.title | default: "Image Title" %}
+{% assign card_category = include.category | default: "Uncategorized" %}
+{% assign card_description = include.description | default: "" %}
+{% assign card_image_url = include.image_url | default: "/assets/images/placeholder.png" %}
+
+<div class="card">
+    <img src="{{ card_image_url }}" alt="{{ card_title | escape }}" loading="lazy" />
+    <h3>{{ card_title }}</h3>
+    <p>{{ card_category }}</p>
+    <small>{{ card_description }}</small>
+</div>

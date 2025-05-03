@@ -1,0 +1,87 @@
+---
+# i love front matter
+--- 
+
+@import "global";
+@import "text";
+@import "flex";
+@import "gradients";
+@import "animations";
+@import "buttons";
+@import "images";
+@import "header";
+@import "footer";
+@import "cards";
+@import "blog";
+@import "gallery";
+
+// Root wrapper, set viewport height.
+.app {
+    height: auto;
+    min-height: 100vh;
+}
+
+// Focal container for page-specific content
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 64rem;
+    // How wide the page's main container is.
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    /* Add a top margin to push content down below the header */
+    margin-top: 8.7rem;
+}
+
+// Used within main for pre-formatted content.
+pre {
+    color: var(--color-gt-white);
+    font-size: 12px;
+    font-family: var(--font-family);
+    background-color: var(--color-secondary);
+    box-shadow: var(--shadow-drop);
+    overflow-x: auto;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+
+    // cursor: url('/assets/images/gt_cursor_32.png'), auto;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+    /* Background Stuff */
+    background-attachment: fixed;
+    background-color: black;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* --- Media Query for Small Screens --- */
+@media (max-width: 768px) {
+
+    /* Adjust breakpoint as needed */
+    body {
+        flex-direction: column;
+        /* Stack main content and sidebar */
+    }
+
+    h1 {
+        font-size: 2.4rem;
+    }
+}

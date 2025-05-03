@@ -1,0 +1,344 @@
+// assets/_sass/_gallery.scss
+// Contains styles for Gallery page carousel/thumbnails AND Garage page carousel/layout/related-images
+
+// --- Gallery Page: Carousel ---
+.gallery-carousel-wrapper {
+    position: relative; // Needed for absolute positioning of buttons
+    width: 100%;
+    max-width: 700px; // Max width of the carousel viewport
+    margin: 2rem auto; // Center the carousel wrapper
+    box-shadow: var(--shadow-drop);
+    border-radius: var(--border-radius);
+    background-color: rgba(var(--color-gt-gray-darkest), 0.5); // Slight background tint
+
+    // Add specific class for garage page if wrapper styles differ significantly
+    // &.garage-carousel-wrapper { margin-top: 1rem; }
+}
+
+.gallery-carousel {
+    overflow: hidden; // Hides the parts of the track outside the viewport
+    border-radius: var(--border-radius); // Match wrapper
+
+    // Add specific class for garage page if carousel styles differ
+    // &.garage-carousel { /* specific garage styles */ }
+}
+
+.carousel-track {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; // Lines up slides horizontally
+    transition: transform 300ms ease-in-out; // Smooth sliding animation
+}
+
+.carousel-slide {
+    flex: 0 0 100%; // Each slide takes 100% of the carousel viewport width
+    box-sizing: border-box;
+
+    img.carousel-main-image { // Target the main image in the slide
+        display: block;
+        opacity: 1; // Ensure full opacity
+        width: 100%;
+        height: 400px; // Default height for gallery carousel images
+        object-fit: cover;
+        object-position: center;
+        border-radius: calc(var(--border-radius) / 2);
+    }
+}
+
+// --- Carousel Buttons (Shared by Gallery and Garage) ---
+.carousel-button {
+    position: absolute;
+    // Positioning buttons underneath the image frame:
+    top: 100%;
+    // translateY(-50%) centers the button vertically on the bottom edge of the wrapper
+    // Remove transform or set to translateY(0) if you want the top of the button aligned with the bottom edge.
+    transform: translateY(-50%);
+    background-color: var(--color-gt-gray-dark);
+    color: var(--color-gt-white);
+    border: none;
+    font-size: 1rem; // Adjusted size slightly
+    padding: 0; // Padding added to prev/next specifically
+    outline: 4px solid var(--color-gt-gold); // Use focus style instead
+    border-radius: 0.1rem;
+    cursor: pointer;
+    z-index: 10; // Ensure buttons are above carousel track
+    opacity: 0.7;
+    transition: opacity 0.1s ease, background-color 0.1s ease;
+    line-height: 0; // Helps if button contains only img
+
+    img { // Style for images inside buttons
+        display: block; // Remove extra space
+        height: 2.5rem; // Control button size via image height
+        width: auto;
+        padding: 0.2rem; // Add padding around image within button
+        filter: drop-shadow(1px 1px 1px black); // Add slight shadow to icons
+    }
+
+
+    &:hover {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.8);
+        transform: translateY(-50%); // Maintain position override global button hover transform
+    }
+
+    &:focus {
+        outline: 4px solid var(--color-gt-yellow); // Accessibility focus indicator
+        outline-offset: 1px;
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.9); // Darken slightly on focus too
+    }
+}
+
+.carousel-button-prev {
+    left: 15px; // Adjust position slightly from edge
+}
+
+.carousel-button-next {
+    right: 15px; // Adjust position slightly from edge
+}
+
+
+// --- Gallery Page: Info Below Carousel ---
+.carousel-info { // Used only on Gallery Page
+    margin-top: 2.5rem; // Increased space now buttons are below
+    padding: 1rem;
+    background-color: rgba(var(--color-gt-gray-dark), 0.7);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-inset);
+    color: var(--color-gt-white);
+    text-align: center;
+    max-width: 700px; // Match carousel width
+    margin-left: auto;
+    margin-right: auto;
+
+    h2 { margin-top: 0; margin-bottom: 0.25rem; color: var(--color-gt-gold); font-size: 1.8rem; }
+    h3 { margin-top: 0; margin-bottom: 0.75rem; color: var(--color-gt-yellow); font-size: 1.2rem; font-weight: 400; }
+    p { margin-bottom: 0; font-size: 1rem; line-height: 1.5; }
+}
+
+// --- Gallery Page: Thumbnail Grid Below Info ---
+.gallery-thumbnail-grid { // Used only on Gallery Page
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.75rem;
+    padding: 1rem;
+    margin-top: 2rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(var(--color-gt-gray-darkest), 0.3);
+    border-radius: var(--border-radius);
+    justify-content: center;
+}
+
+.thumbnail-item { // Used only on Gallery Page
+    padding: 0;
+    border: 2px solid transparent;
+    background-color: var(--color-gt-gray-dark);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    opacity: 0.7;
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    &:hover { border-color: var(--color-gt-yellow); transform: scale(1.05); opacity: 1.0; }
+    &:focus { outline: 2px solid var(--color-gt-yellow); outline-offset: 2px; opacity: 1.0; }
+    &.is-active { border-color: var(--color-gt-gold); opacity: 1.0; transform: scale(1.05); box-shadow: 0 0 8px var(--color-gt-gold); }
+}
+
+
+// ==========================================
+// --- Garage Page Specific Styles ---
+// ==========================================
+
+// --- Garage Page: Two-Column Layout ---
+.garage-container {
+    display: flex;
+    gap: 0; // User confirmation: No gap between columns
+    width: 100%;
+    align-items: flex-start;
+    // Removed max-width: max-content; to allow filling parent
+}
+
+.garage-carousel-column {
+    flex: 1; // Adjust ratio if needed, e.g., 1.5 vs 1 for panel
+    min-width: 0; // Allow shrinking
+}
+
+.garage-info-panel {
+    flex: 1.3; // Takes slightly more space than carousel column
+    min-width: 0; // Allow shrinking
+    padding: 1.5rem;
+    background-color: rgba(var(--color-gt-gray-dark), 0.7);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-inset);
+    color: var(--color-gt-white);
+    height: 80vh; // Set fixed height for scrolling content
+    overflow-y: auto;
+
+    // Styles for content inside info panel
+    h2 { margin-top: 0; margin-bottom: 0.25rem; color: var(--color-gt-gold); font-size: 2rem; text-align: center; }
+    h3 { margin-top: 0; margin-bottom: 1.5rem; color: var(--color-gt-yellow); font-size: 1.3rem; font-weight: 400; text-align: center; border-bottom: 1px solid var(--color-gt-gray-mid); padding-bottom: 1rem; }
+    h4 { color: var(--color-gt-gold); margin-top: 1.5rem; margin-bottom: 0.5rem; border-bottom: 1px dotted var(--color-gt-gray-light); padding-bottom: 0.3rem; font-size: 1.1rem; }
+    .specs-list, .mods-list { list-style: none; padding-left: 0.5rem; margin-bottom: 1rem;
+        li { margin-bottom: 0.4rem; line-height: 1.4; }
+        strong { color: var(--color-gt-yellow); margin-right: 0.5em; }
+    }
+    .description-section p { line-height: 1.6; margin-bottom: 1rem; padding-left: 0.5rem; }
+}
+
+// --- Garage Page: Related Images Section (Below Columns) ---
+.related-images-section {
+    width: 100%;
+    max-width: 900px; // Max width for this section
+    margin: 2rem auto 1rem auto; // Centered below columns
+    padding: 1rem;
+    background-color: rgba(var(--color-gt-gray-darkest), 0.3);
+    border-radius: var(--border-radius);
+
+    h4 { // Heading for this section
+        color: var(--color-gt-gold);
+        margin-top: 0;
+        margin-bottom: 1rem;
+        border-bottom: 1px dotted var(--color-gt-gray-light);
+        padding-bottom: 0.3rem;
+        font-size: 1.1rem;
+    }
+}
+// Grid container for related images
+.related-images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.75rem;
+}
+// Individual related image items
+.related-image-item {
+    padding: 0;
+    border: 2px solid transparent;
+    background-color: var(--color-gt-gray-dark);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    opacity: 0.7;
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    &:hover { border-color: var(--color-gt-yellow); transform: scale(1.05); opacity: 1.0; }
+    &:focus { outline: 2px solid var(--color-gt-yellow); outline-offset: 2px; opacity: 1.0; }
+    // No :active state needed here
+}
+
+
+// --- Garage Page: Carousel Image Height Adjustment ---
+.garage-carousel .carousel-main-image {
+    height: 500px; // Make garage carousel images taller
+    // object-fit: contain; // Uncomment if 'contain' is preferred for cars
+}
+
+
+// --- Media Query for Smaller Screens (Garage Layout) ---
+@media (max-width: 768px) {
+    .garage-container {
+        flex-wrap: wrap; // Allow wrapping
+        gap: 1rem; // Add gap back when stacking
+    }
+    .garage-carousel-column,
+    .garage-info-panel {
+        flex: 1 1 100%; // Stack elements
+        max-width: none;
+    }
+    .garage-info-panel {
+        height: auto; // Auto height when stacked
+        margin-top: 1rem;
+        overflow-y: visible; // Disable scroll unless content demands it
+    }
+    // Adjust related images section margins if needed on small screens
+    .related-images-section {
+        margin-top: 1rem;
+    }
+}
+
+
+// ==========================================
+// --- Lightbox Styles (Shared) ---
+// ==========================================
+.lightbox-content {
+    // This wrapper can be simpler now, mainly for grouping
+    position: relative;
+    // Remove max-width/max-height from here, apply directly to image/caption
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; // Center content vertically too if space allows
+    width: 100%; // Allow content to try and fill overlay padding
+    height: 100%;
+}
+
+.lightbox-image {
+    display: block;
+    // *** Key Change: Size relative to viewport, maintain aspect ratio ***
+    max-width: 100%; // Max width relative to .lightbox-content (which is ~90vw due to overlay padding)
+    max-height: 85vh; // Max height using viewport height (leave ~15% for padding/caption)
+    width: auto;   // Let browser determine width based on height constraint
+    height: auto;  // Let browser determine height based on width constraint
+    object-fit: contain; // Scale down to fit within bounds, preserving aspect ratio
+    // *** End Key Change ***
+
+    margin-bottom: 0; // Remove space below image if caption is directly attached
+    box-shadow: 0 0 25px rgba(0,0,0,0.5); // Optional shadow
+    border-radius: 4px 4px 0 0; // Only round top corners if caption is directly below
+}
+
+.lightbox-caption {
+    background-color: rgba(0, 0, 0, 0.75); // Slightly darker caption background
+    color: var(--color-gt-white);
+    padding: 0.8rem 1.2rem; // Slightly more padding
+    text-align: center;
+    width: auto; // Let caption size itself based on content
+    max-width: 90%; // Max width relative to lightbox content area
+    box-sizing: border-box;
+    border-radius: 0 0 4px 4px; // Round bottom corners
+    margin-top: -1px; // Slight overlap to avoid gap with image if using border-radius
+
+    // *** Increase Font Sizes ***
+    h4 { // Style for #lightbox-title
+        margin: 0 0 0.4rem 0;
+        font-size: 1.4rem; // Increased size
+        color: var(--color-gt-gold);
+        font-weight: 600;
+    }
+
+    p { // Style for #lightbox-description
+        margin: 0;
+        font-size: 1.05rem; // Increased size
+        line-height: 1.5;  // Adjust line height if needed
+    }
+}
+#lightbox.lightbox-overlay { // Main overlay rule
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease-in-out;
+    padding: 1rem; // Add padding around the content
+    box-sizing: border-box;
+
+
+    &.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}

@@ -1,0 +1,45 @@
+# _data/my_garage.yml
+- make: "Toyota"
+  model: "Supra MK4"
+  nickname: "Sunrise Supra" # Use as primary display name?
+  year: 1998
+  engine: "2JZ-GTE 3.0L Twin-Turbo I6"
+  power: "326 hp" # Example Spec
+  torque: "325 lb-ft" # Example Spec
+  color: "Alpine Silver" # Example Spec
+  purchase_date: "2024-01-15"
+  description: "A legendary JDM icon representing the peak of 90s Japanese sports cars. Known for its robust engine and timeless design."
+  mods: # Example List Spec
+    - "HKS Super Drager Exhaust"
+    - "Tein Flex Z Coilovers"
+    - "GReddy Intercooler"
+  images:
+    - url: "/assets/garage/volvino/real.jpg" # Your existing image
+      title: "Front Quarter View"
+      description: "Catching the morning light."
+    - url: "/assets/garage/volvino/yes.jpg" # Add more image paths
+      title: "Engine Bay"
+      description: "The heart of the beast - 2JZ."
+
+- make: "Honda"
+  model: "NSX"
+  nickname: "Forest Cruiser"
+  year: 1995
+  engine: "C30A 3.0L V6 VTEC"
+  power: "270 hp"
+  torque: "210 lb-ft"
+  color: "Formula Red"
+  purchase_date: "2023-05-20"
+  description: "Honda's mid-engine marvel, developed with input from Ayrton Senna. Offers precise handling and an engaging driving experience."
+  mods:
+    - "Stock Engine"
+    - "BC Racing Coilovers"
+  images:
+    - url: "/assets/garage/volvorro/definitely a volvo.png" # Your existing image
+      title: "Side Profile"
+      description: "Timeless wedge shape."
+    - url: "/assets/garage/volvorro/it's a pic i took.jpg" # Add more image paths
+      title: "Rear View"
+      description: "Distinctive full-width taillights."
+
+# --- Add more cars below ---
