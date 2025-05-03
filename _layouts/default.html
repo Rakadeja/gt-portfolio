@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
+    <link rel="shortcut icon" href="{{ '../images/favicon.ico' | relative_url }}">
     <title>{{ site.title | default: site.github.repository_name }}</title>
     <meta name="description" content="{{ site.description | default: site.github.project_description }}">
     {% seo %}
@@ -40,5 +40,11 @@
     </body>
 
 </div>
+
+<script>
+    // Make site.baseurl available globally for JavaScript
+    // Output will be "/" or "/gt-portfolio" depending on config
+    window.siteBaseurl = "{{ '' | relative_url }}";
+</script>
 
 </html>

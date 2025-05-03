@@ -4,7 +4,7 @@ header {
     justify-content: space-between;
     align-items: center;
 
-    background-image: url('/assets/images/gt_checkered_header.png');
+    background-image: url('../images/gt_checkered_header.png');
     background-repeat: repeat-x;
     background-size: contain;
     width: 100%;
@@ -123,22 +123,22 @@ nav ul li a img {
 
 
 #nav-btn-home {
-    background-image: url('/assets/images/gt_icon_home.png') no-repeat center;
+    background-image: url('../images/gt_icon_home.png') no-repeat center;
     background-size: contain;
 }
 
 #nav-btn-garage {
-    background-image: url('/assets/images/gt_checker_icon_1.png') no-repeat center;
+    background-image: url('../images/gt_checker_icon_1.png') no-repeat center;
     background-size: contain;
 }
 
 #nav-btn-gallery {
-    background-image: url('/assets/images/gt_icon_camera.png') no-repeat center;
+    background-image: url('../images/gt_icon_camera.png') no-repeat center;
     background-size: contain;
 }
 
 #nav-btn-contact {
-    background-image: url('/assets/images/gt_icon_info_dark.png') no-repeat center;
+    background-image: url('../images/gt_icon_info_dark.png') no-repeat center;
     background-size: contain;
 }
 

@@ -11,7 +11,7 @@
                     {% assign home_url = '/' | relative_url %}
                     <li {% if current_page_url==home_url %}aria-current="page" {% endif %}>
                         <a href="{{ home_url }}" class="{% if current_page_url == home_url %}active{% endif %}">
-                            <img id="nav-btn-home" src="{{ '/assets/images/gt_icon_home.png' | relative_url }}" />
+                            <img id="nav-btn-home" src="{{ '../images/gt_icon_home.png' | relative_url }}" />
                         </a>
                     </li>
 
@@ -24,7 +24,7 @@
                         %}aria-current="page" {% endif %}>
                         <a href="{{ blog_base_url }}"
                             class="{% if current_page_url == blog_base_url or current_url_blog_prefix == blog_check_path %}active{% endif %}">
-                            <img id="nav-btn-garage" src="{{ '/assets/images/blog.png' | relative_url }}" />
+                            <img id="nav-btn-garage" src="{{ '../images/blog.png' | relative_url }}" />
                         </a>
                     </li>
 
@@ -32,8 +32,7 @@
                     {% assign garage_url = '/garage/' | relative_url %}
                     <li {% if current_page_url==garage_url %}aria-current="page" {% endif %}>
                         <a href="{{ garage_url }}" class="{% if current_page_url == garage_url %}active{% endif %}">
-                            <img id="nav-btn-garage"
-                                src="{{ '/assets/images/gt_checker_icon_1.png' | relative_url }}" />
+                            <img id="nav-btn-garage" src="{{ '../images/gt_checker_icon_1.png' | relative_url }}" />
                         </a>
                     </li>
 
@@ -41,7 +40,7 @@
                     {% assign gallery_url = '/gallery/' | relative_url %}
                     <li {% if current_page_url==gallery_url %}aria-current="page" {% endif %}>
                         <a href="{{ gallery_url }}" class="{% if current_page_url == gallery_url %}active{% endif %}">
-                            <img id="nav-btn-gallery" src="{{ '/assets/images/camera.png' | relative_url }}" />
+                            <img id="nav-btn-gallery" src="{{ '../images/camera.png' | relative_url }}" />
                         </a>
                     </li>
 
@@ -49,7 +48,7 @@
                     {% assign videos_url = '/videos/' | relative_url %}
                     <li {% if current_page_url==videos_url %}aria-current="page" {% endif %}>
                         <a href="{{ videos_url }}" class="{% if current_page_url == videos_url %}active{% endif %}">
-                            <img id="nav-btn-videos" src="{{ '/assets/images/video-camera.png' | relative_url }}" />
+                            <img id="nav-btn-videos" src="{{ '../images/video-camera.png' | relative_url }}" />
                         </a>
                     </li>
 
@@ -57,8 +56,7 @@
                     {% assign contact_url = '/contact/' | relative_url %}
                     <li {% if current_page_url==contact_url %}aria-current="page" {% endif %}>
                         <a href="{{ contact_url }}" class="{% if current_page_url == contact_url %}active{% endif %}">
-                            <img id="nav-btn-contact"
-                                src="{{ '/assets/images/gt_icon_info_dark.png' | relative_url }}" />
+                            <img id="nav-btn-contact" src="{{ '../images/gt_icon_info_dark.png' | relative_url }}" />
                         </a>
                     </li>
             </nav>
