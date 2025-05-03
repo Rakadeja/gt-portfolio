@@ -1,5 +1,51 @@
-_site
-.sass-cache
-.jekyll-cache
+# --- Jekyll Environment ---
+# Built site directory (GitHub Pages builds this automatically)
+_site/
+
+# Jekyll cache files
+.jekyll-cache/
 .jekyll-metadata
-vendor
+
+# Sass cache directory
+.sass-cache/
+
+# --- Dependency Management ---
+# Gems installed locally by Bundler (if using --path)
+# vendor/bundle/
+
+# Gemfile lock (often ignored for broader GH Pages compatibility, but can be committed)
+# Gemfile.lock
+
+# Node.js dependencies (if using npm/yarn for build tools, linters, etc.)
+node_modules/
+package-lock.json
+yarn.lock
+
+# --- IDE / Editor Specific ---
+# VS Code specific settings/cache
+.vscode/
+# VS Code workspace file (User had this in _config.yml exclude)
+*.code-workspace
+
+# --- Operating System Files ---
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Log & Temporary Files ---
+*.log
+*~
+*.swp
+*.swo
+
+# --- Other ---
+# dotenv environment files
+.env
+.env.*
+!.env.example
