@@ -1,11 +1,12 @@
 // assets/js/garage-carousel.js
 // Handles carousel navigation, info panel updates, related images grid,
 // and lightbox functionality for the My Garage page.
+// Uses standard string concatenation for path construction.
 
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Element Selections ---
-    const garageContainer = document.querySelector('.garage-container'); // Main container for checks
+    const garageContainer = document.querySelector('.garage-container');
     const track = document.querySelector('.garage-container .carousel-track');
     const nextButton = document.querySelector('.garage-container .carousel-button-next');
     const prevButton = document.querySelector('.garage-container .carousel-button-prev');
@@ -30,115 +31,99 @@ document.addEventListener('DOMContentLoaded', () => {
     const infoDescription = document.getElementById('garage-info-description');
     const infoModsList = document.getElementById('garage-info-mods');
 
+    // --- Read Base URL (defined in default.html) ---
+    // Ensure the <script> tag setting window.siteBaseurl is in your layout
+    const basePath = window.siteBaseurl || ''; // Default to empty string
 
     // --- Basic Checks ---
-    // Check if we are on the garage page by looking for the main container
     if (!garageContainer || !track || !infoPanel || !relatedImagesContainer || !infoNickname) {
-        // console.log("Essential garage page elements not found. Exiting garage-carousel.js");
-        return; // Exit script if not on the correct page or core elements are missing
+        // console.log("Essential garage page elements not found. Exiting script.");
+        return;
     }
 
     const slides = Array.from(track.children);
     if (slides.length === 0) {
         console.warn("No slides found in garage carousel track.");
-        // Potentially hide the related images container title if it exists
         const relatedImagesSection = document.querySelector('.related-images-section');
         if (relatedImagesSection) relatedImagesSection.style.display = 'none';
-        return; // Stop if no slides generated
+        return;
     }
 
-    // Check if lightbox elements exist - determines if lightbox logic runs
     const lightboxEnabled = lightbox && lightboxImage && lightboxTitle && lightboxDescription;
     if (!lightboxEnabled) {
-        console.warn("Lightbox elements not fully found. Lightbox functionality will be disabled.");
+        // console.warn("Lightbox elements not fully found. Lightbox functionality will be disabled.");
     }
 
-    // Hide nav buttons if only one car
     if (slides.length <= 1) {
         if (nextButton) nextButton.style.display = 'none';
         if (prevButton) prevButton.style.display = 'none';
     }
     // --- End Basic Checks ---
 
-
     // --- State Variables ---
     let currentIndex = 0;
     let slideWidth = 0;
-    let carsData = []; // Array to hold the parsed data for each car
-    let isResizeDebounced = null; // For debouncing resize
-
+    let carsData = [];
+    let isResizeDebounced = null;
 
     // --- Core Functions ---
 
-    /**
-     * Calculates slide width, parses embedded JSON data from slides.
-     * Must be called after elements are visible and have dimensions.
-     */
     const setupCarousel = () => {
-        // Ensure slides are visible and have width before calculating
         if (!slides[0] || slides[0].offsetParent === null) {
-            console.warn("Carousel slides not visible for width calculation. Retrying...");
-            // Retry after a short delay allows CSS/layout to settle
+            // console.warn("Carousel slides not ready for width calc. Retrying...");
             setTimeout(setupCarousel, 100);
             return;
         }
-
         slideWidth = slides[0].getBoundingClientRect().width;
         if (slideWidth <= 0) {
-            console.warn(`Calculated slide width is ${slideWidth}. Check visibility/CSS. Retrying...`);
-            // Retry if width is still 0
+            // console.warn(`Slide width calc failed (${slideWidth}). Retrying...`);
             setTimeout(setupCarousel, 100);
             return;
         }
 
-        // Parse and store car data from data attributes only once
         if (carsData.length === 0) {
             carsData = slides.map((slide, index) => {
                 try {
-                    // Ensure the data attribute name matches the one in garage.html
                     return JSON.parse(slide.dataset.carInfo || '{}');
                 } catch (e) {
                     console.error(`Failed to parse car info JSON for slide ${index}:`, slide.dataset.carInfo, e);
-                    return {}; // Return empty object on error to prevent breaking map
+                    return {};
                 }
             });
         }
-
-        // Apply initial position and content
-        moveToSlide(currentIndex); // Position the track correctly
-        updateInfoPanel(currentIndex); // Populate the info panel for the first car
+        moveToSlide(currentIndex);
+        updateInfoPanel(currentIndex);
     };
 
-    /**
-     * Moves the carousel track horizontally to show the target slide.
-     * @param {number} targetIndex - The index of the slide to move to.
-     */
     const moveToSlide = (targetIndex) => {
-        if (!track || slideWidth <= 0) return; // Don't move if width is unknown or 0
+        if (!track || slideWidth <= 0) return;
         const amountToMove = targetIndex * slideWidth;
-        track.style.transform = `translateX(-${amountToMove}px)`;
+        track.style.transform = 'translateX(-' + amountToMove + 'px)'; // Concat version
         currentIndex = targetIndex;
     };
 
-    /**
-     * Updates the entire side info panel content based on the selected car index.
-     * @param {number} targetIndex - The index of the currently selected car.
-     */
     const updateInfoPanel = (targetIndex) => {
-        const carData = carsData[targetIndex]; // Get pre-parsed data
+        const carData = carsData[targetIndex];
         if (!carData || Object.keys(carData).length === 0) {
-            console.warn(`No valid car data found for index ${targetIndex}`);
-            // Optionally clear the panel or display a default message
+            console.warn('No valid car data for index ' + targetIndex);
+            // Clear panel or show error message
             infoNickname.textContent = 'Error';
-            infoMakeModel.textContent = 'Car data unavailable';
-            // Clear other fields...
-            relatedImagesContainer.innerHTML = '<p>Car data could not be loaded.</p>';
+            infoMakeModel.textContent = 'Data unavailable';
+            infoYear.textContent = 'N/A';
+            infoEngine.textContent = 'N/A';
+            infoPower.textContent = 'N/A';
+            infoTorque.textContent = 'N/A';
+            infoColor.textContent = 'N/A';
+            infoDescription.textContent = '';
+            infoPurchase.textContent = 'N/A';
+            infoModsList.innerHTML = '<li>Data could not be loaded.</li>';
+            relatedImagesContainer.innerHTML = '<p>Data could not be loaded.</p>';
             return;
         }
 
-        // Update simple text fields safely
+        // Update text fields
         infoNickname.textContent = carData.nickname || carData.model || '';
-        infoMakeModel.textContent = `${carData.make || ''} ${carData.model || ''}`;
+        infoMakeModel.textContent = (carData.make || '') + ' ' + (carData.model || '');
         infoYear.textContent = carData.year || 'N/A';
         infoEngine.textContent = carData.engine || 'N/A';
         infoPower.textContent = carData.power || 'N/A';
@@ -148,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         infoPurchase.textContent = carData.purchase_date ? formatDate(carData.purchase_date) : 'N/A';
 
         // Update Mods List
-        infoModsList.innerHTML = ''; // Clear previous mods
+        infoModsList.innerHTML = '';
         if (carData.mods && Array.isArray(carData.mods) && carData.mods.length > 0) {
             carData.mods.forEach(mod => {
                 const li = document.createElement('li');
@@ -156,31 +141,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 infoModsList.appendChild(li);
             });
         } else {
-            const li = document.createElement('li');
-            li.textContent = 'None listed.';
-            infoModsList.appendChild(li);
+            infoModsList.innerHTML = '<li>None listed.</li>';
         }
 
         // Update Related Images Grid
-        relatedImagesContainer.innerHTML = ''; // Clear previous images
-
-        if (carData && carData.images && Array.isArray(carData.images) && carData.images.length > 0) {
+        relatedImagesContainer.innerHTML = '';
+        if (carData.images && Array.isArray(carData.images) && carData.images.length > 0) {
             carData.images.forEach(imgData => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'related-image-item';
                 itemDiv.setAttribute('role', 'button');
                 itemDiv.setAttribute('tabindex', '0');
 
-                // *** Construct correct paths using basePath ***
-                const imageUrl = imgData.url ? `<span class="math-inline">\{basePath\}</span>{imgData.url}` : `${basePath}/assets/images/placeholder.png`;
-                const imageSrcForData = imgData.url ? `<span class="math-inline">\{basePath\}</span>{imgData.url}` : ''; // Store full path for lightbox if needed, or just original relative
+                const imageUrlRaw = imgData.url || ''; // Path from YAML, e.g., /assets/...
+                const placeholderPath = basePath + '/assets/images/placeholder.png';
+                let imageUrl;
 
-                itemDiv.dataset.src = imgData.url || ''; // Keep original relative path in dataset if preferred for lightbox? Or store full path? Let's store original for now.
+                // Construct full path using concatenation
+                if (imageUrlRaw && imageUrlRaw.startsWith('/')) {
+                    imageUrl = basePath + imageUrlRaw;
+                } else if (imageUrlRaw) {
+                    imageUrl = imageUrlRaw; // Assume relative or already absolute
+                } else {
+                    imageUrl = placeholderPath;
+                }
+
+                // Store original relative path in dataset for lightbox
+                itemDiv.dataset.src = imageUrlRaw;
                 itemDiv.dataset.title = imgData.title || '';
                 itemDiv.dataset.description = imgData.description || '';
 
                 const img = document.createElement('img');
-                img.src = imageUrl; // Use the correctly constructed URL
+                img.src = imageUrl; // Assign the final constructed URL
                 img.alt = imgData.title || carData.nickname || 'Related image';
                 img.loading = 'lazy';
 
@@ -188,46 +180,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 relatedImagesContainer.appendChild(itemDiv);
             });
         } else {
-            relatedImagesContainer.innerHTML = '<p>No related images available.</p>';
+             relatedImagesContainer.innerHTML = '<p>No related images available.</p>';
         }
-    };
+    }; // End updateInfoPanel
 
-    /**
-     * Formats a date string using browser's locale settings.
-     * Treats input date as UTC to avoid unexpected timezone shifts.
-     * @param {string} dateString - The date string to format (e.g., "YYYY-MM-DD").
-     * @returns {string} Formatted date string or original string on error.
-     */
     const formatDate = (dateString) => {
         if (!dateString) return 'N/A';
         try {
-            // Append time and Z to ensure it's parsed as UTC
-            const date = new Date(`${dateString}T00:00:00Z`);
-            // Check if the date is valid after parsing
-            if (isNaN(date.getTime())) {
-                throw new Error("Invalid date");
-            }
-            const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
-            return date.toLocaleDateString(undefined, options);
+            const date = new Date(dateString + 'T00:00:00Z'); // Treat as UTC
+             if (isNaN(date.getTime())) throw new Error("Invalid date");
+             const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
+             return date.toLocaleDateString(undefined, options);
         } catch (e) {
-            // console.warn("Could not format date:", dateString, e);
-            return dateString; // Return original string if formatting fails
+            return dateString;
         }
     };
 
-
     // --- Lightbox Functions ---
-    /**
-     * Opens the lightbox with the specified image and caption.
-     * @param {string} imageSrc - The source URL of the image.
-     * @param {string} imageTitle - The title for the caption.
-     * @param {string} imageDescription - The description for the caption.
-     */
-    const openLightbox = (imageSrc, imageTitle, imageDescription) => {
-        if (!lightboxEnabled || !imageSrc) return;
+    const openLightbox = (imageSrcRelative, imageTitle, imageDescription) => {
+        if (!lightboxEnabled || !imageSrcRelative) return;
 
-        // Assume imageSrc from dataset is root-relative (starts with /)
-        const fullImageSrc = imageSrc.startsWith('/') ? `${basePath}${imageSrc}` : imageSrc;
+        // Construct full path using concatenation
+        let fullImageSrc;
+        if (imageSrcRelative.startsWith('/')) {
+            fullImageSrc = basePath + imageSrcRelative;
+        } else {
+            fullImageSrc = imageSrcRelative; // Assume already correct path
+        }
 
         lightboxImage.setAttribute('src', fullImageSrc);
         lightboxImage.setAttribute('alt', imageTitle || 'Enlarged image');
@@ -236,33 +215,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const captionElement = lightbox.querySelector('.lightbox-caption');
         if (captionElement) {
-            captionElement.style.display = (!imageTitle && !imageDescription) ? 'none' : 'block';
+             captionElement.style.display = (!imageTitle && !imageDescription) ? 'none' : 'block';
         }
         lightbox.classList.add('is-visible');
+        // document.body.style.overflow = 'hidden';
     };
 
-    /** Closes the lightbox. */
     const closeLightbox = () => {
         if (!lightboxEnabled) return;
         lightbox.classList.remove('is-visible');
-        lightboxTitle.textContent = ''; // Clear text
-        lightboxDescription.textContent = ''; // Clear text
-
-        // Optional: Clear src after transition ends to prevent potential flicker
+        lightboxTitle.textContent = '';
+        lightboxDescription.textContent = '';
+        // Optional: Clear src after transition
         setTimeout(() => {
-            if (!lightbox.classList.contains('is-visible')) { // Check if still hidden
-                lightboxImage.setAttribute('src', '');
-                lightboxImage.setAttribute('alt', '');
+            if (!lightbox.classList.contains('is-visible')) {
+                 lightboxImage.setAttribute('src', '');
+                 lightboxImage.setAttribute('alt', '');
             }
-        }, 300); // Match CSS transition duration
-
-        // document.body.style.overflow = ''; // Optional: enable body scroll
+         }, 300);
+        // document.body.style.overflow = '';
     };
 
-
     // --- Event Listeners ---
-
-    // Carousel Navigation Buttons
     nextButton?.addEventListener('click', () => {
         let nextIndex = (currentIndex + 1) % slides.length;
         moveToSlide(nextIndex);
@@ -275,76 +249,71 @@ document.addEventListener('DOMContentLoaded', () => {
         updateInfoPanel(prevIndex);
     });
 
-    // Related Images Grid - Click/Keydown for Lightbox (Event Delegation)
+    // Related Images Click/Keydown Listener (Event Delegation)
     relatedImagesContainer.addEventListener('click', (e) => {
         if (!lightboxEnabled) return;
         const clickedItem = e.target.closest('.related-image-item');
         if (clickedItem) {
-            const imageSrc = clickedItem.dataset.src;
-            const imageTitle = clickedItem.dataset.title;
-            const imageDescription = clickedItem.dataset.description;
-            if (imageSrc) {
-                openLightbox(imageSrc, imageTitle, imageDescription);
-            }
+            // Pass the original relative path from dataset.src
+            openLightbox(
+                clickedItem.dataset.src,
+                clickedItem.dataset.title,
+                clickedItem.dataset.description
+            );
         }
     });
 
     relatedImagesContainer.addEventListener('keydown', (e) => {
-        if (!lightboxEnabled) return;
+         if (!lightboxEnabled) return;
         if (e.key === 'Enter' || e.key === ' ') {
-            const focusedItem = e.target.closest('.related-image-item');
-            if (focusedItem) {
-                e.preventDefault(); // Prevent default spacebar scroll / button activation
-                const imageSrc = focusedItem.dataset.src;
-                const imageTitle = focusedItem.dataset.title;
-                const imageDescription = focusedItem.dataset.description;
-                if (imageSrc) {
-                    openLightbox(imageSrc, imageTitle, imageDescription);
-                }
-            }
+             const focusedItem = e.target.closest('.related-image-item');
+              if (focusedItem) {
+                    e.preventDefault();
+                    openLightbox(
+                        focusedItem.dataset.src,
+                        focusedItem.dataset.title,
+                        focusedItem.dataset.description
+                    );
+              }
         }
     });
 
-
-    // Lightbox Close Listeners (Only add if lightbox is enabled)
+    // Lightbox Close Listeners
     if (lightboxEnabled) {
         lightbox.addEventListener('click', (e) => {
-            // Close if the click is directly on the overlay backdrop or the contained image/caption
             if (e.target === lightbox || e.target.closest('.lightbox-content')) {
-                closeLightbox();
+                 closeLightbox();
             }
         });
-
-        window.addEventListener('keydown', (e) => { // Close lightbox with Escape key
+        window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && lightbox.classList.contains('is-visible')) {
                 closeLightbox();
             }
         });
     }
 
-
-    // Window Resize Listener (Debounced)
+    // Debounced Resize Listener
     window.addEventListener('resize', () => {
         clearTimeout(isResizeDebounced);
         isResizeDebounced = setTimeout(() => {
-            console.log("Window resized, recalculating garage carousel layout.");
-            // Recalculate width and update positions/layout as needed
-            // Only call setupCarousel again if width calculation is needed,
-            // otherwise just repositioning might be sufficient.
-            const oldWidth = slideWidth;
-            slideWidth = slides[0] ? slides[0].getBoundingClientRect().width : 0;
-            if (slideWidth > 0 && slideWidth !== oldWidth) {
-                moveToSlide(currentIndex); // Reposition track based on new width
-            } else if (slideWidth <= 0) {
-                // Attempt setup again if width became 0
-                console.warn("Slide width became 0 on resize, attempting setup again.");
-                setupCarousel();
-            }
-        }, 250); // Debounce delay in milliseconds
+             // console.log("Window resized, recalculating garage carousel layout.");
+             const oldWidth = slideWidth;
+             slideWidth = slides[0] ? slides[0].getBoundingClientRect().width : 0;
+             if (slideWidth > 0 && slideWidth !== oldWidth) {
+                 moveToSlide(currentIndex); // Just reposition based on new width
+             } else if (slideWidth <= 0) {
+                 // console.warn("Slide width became 0 on resize, attempting setup again.");
+                 setupCarousel(); // Attempt full setup again if width is lost
+             }
+        }, 250);
     });
 
     // --- Initial Setup ---
-    // Attempt setup after DOM is loaded. setupCarousel has internal retries if width isn't ready.
-    setupCarousel();
+    // Use 'load' event to increase chance that images/layout are ready for width calculation
+    if (document.readyState === 'complete') {
+        setupCarousel();
+    } else {
+        window.addEventListener('load', setupCarousel);
+    }
 
 }); // End DOMContentLoaded
